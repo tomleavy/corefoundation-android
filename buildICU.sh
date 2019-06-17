@@ -1,6 +1,6 @@
 git clone https://github.com/unicode-org/icu.git && cd icu && git checkout release-64-2 
 
-if [ -f ./output/libicuuc.a ]; then
+if [ -f ./icu/output/libicuuc.a ]; then
     exit 0
 fi
 
