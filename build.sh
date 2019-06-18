@@ -1,8 +1,8 @@
-exec ./buildOpenSSL.sh
-exec ./buildxml.sh
-exec ./buildICU.sh
-exec ./buildcurl.sh
-exec ./builddispatch.sh
+./buildOpenSSL.sh
+./buildxml.sh
+./buildICU.sh
+./buildcurl.sh
+./builddispatch.sh
 
 export API_LEVEL=21
 export ABI=arm64-v8a
