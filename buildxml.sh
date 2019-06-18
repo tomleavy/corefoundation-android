@@ -39,3 +39,4 @@ autoreconf -i
 # Make + Install
 
 make -j8 libxml2.la && make install-libLTLIBRARIES
+cd include && make install

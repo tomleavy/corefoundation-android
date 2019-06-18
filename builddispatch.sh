@@ -2,6 +2,10 @@ export ARCH=aarch64-linux-android
 export ABI=arm64-v8a
 export API_LEVEL=21
 
+if [ -d ./swift-corelibs-libdispatch/output ]; then
+    exit 0
+fi
+
 git clone https://github.com/apple/swift-corelibs-libdispatch.git
 cd swift-corelibs-libdispatch && git checkout swift-5.0.1-RELEASE
 

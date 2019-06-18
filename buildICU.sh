@@ -1,10 +1,8 @@
-git clone https://github.com/unicode-org/icu.git && cd icu && git checkout release-64-2 
-
-if [ -f ./icu/output/libicuuc.a ]; then
+if [ -f ./icu/icu4c/output/libicuuc.a ]; then
     exit 0
 fi
 
-mkdir output
+git clone https://github.com/unicode-org/icu.git && cd icu && git checkout release-64-2 
 
 cd icu4c
 
@@ -40,7 +38,7 @@ export STRIP=$TOOLCHAIN/bin/${ARCH}-strip
 
 cd ../source && autoreconf -i && cd ../ && mkdir android && cd android
 
-../source/configure --prefix=$(PWD)../../outputs --host=${ARCH} --enable-static --with-data-packaging=archive \
+../source/configure --prefix=$(PWD)../../output --host=${ARCH} --enable-static --with-data-packaging=archive \
     --enable-shared=no \
     --enable-extras=no \
     --enable-strict=no \
