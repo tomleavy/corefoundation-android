@@ -10,6 +10,7 @@ export CXX=$TOOLCHAIN/bin/${ARCH}${API_LEVEL}-clang++
 export LD=$TOOLCHAIN/bin/${ARCH}-ld
 export RANLIB=$TOOLCHAIN/bin/${ARCH}-ranlib
 export STRIP=$TOOLCHAIN/bin/${ARCH}-strip
+export PATH=${TOOLCHAIN}/bin:${PATH}
 
 if [ -f ${PWD}/curl/output/lib/libcurl.la ]; then
     exit 0

@@ -8,18 +8,7 @@ cd icu4c
 
 mkdir macos && cd macos
 
-../source/runConfigureICU MacOSX --prefix=$(PWD)../../output \
-    --enable-static \
-    --enable-shared=no \
-    --enable-extras=no \
-    --enable-strict=no \
-    --enable-icuio=no \
-    --enable-layout=no \
-    --enable-layoutex=no \
-    --enable-tools=no \
-    --enable-tests=no \
-    --enable-samples=no \
-    --enable-dyload=no
+../source/runConfigureICU MacOSX \
 
 make -j8
 
@@ -35,20 +24,12 @@ export CXX=$TOOLCHAIN/bin/${ARCH}${API_LEVEL}-clang++
 export LD=$TOOLCHAIN/bin/${ARCH}-ld
 export RANLIB=$TOOLCHAIN/bin/${ARCH}-ranlib
 export STRIP=$TOOLCHAIN/bin/${ARCH}-strip
+export PATH=${TOOLCHAIN}/bin:${PATH}
 
 cd ../source && autoreconf -i && cd ../ && mkdir android && cd android
 
 ../source/configure --prefix=$(PWD)../../output --host=${ARCH} --enable-static --with-data-packaging=archive \
-    --enable-shared=no \
-    --enable-extras=no \
-    --enable-strict=no \
-    --enable-icuio=no \
-    --enable-layout=no \
-    --enable-layoutex=no \
-    --enable-tools=no \
-    --enable-tests=no \
-    --enable-samples=no \
-    --enable-dyload=no \
+    --enable-shared \
     --with-cross-build="$(realpath ../macos)"
 
 make -j8 && make install
