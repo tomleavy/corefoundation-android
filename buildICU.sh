@@ -33,3 +33,8 @@ cd ../source && autoreconf -i && cd ../ && mkdir android && cd android
     --with-cross-build="$(realpath ../macos)"
 
 make -j8 && make install
+
+cd ../output/lib
+
+for f in *.so.64.2; do mv "$f" "$(echo "$f" | sed s/\.64\.2//)"; done
+for f in *.so.64; do mv "$f" "$(echo "$f" | sed s/\.64//)"; done
