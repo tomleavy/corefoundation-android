@@ -30,8 +30,8 @@ autoreconf -i
     --with-zlib=${TOOLCHAIN}/sysroot/usr \
     --without-python \
     --without-lzma \
-    --disable-static \
-    --enable-shared \
+    --enable-static \
+    --disable-shared \
     --without-http \
     --without-html \
     --without-ftp \
