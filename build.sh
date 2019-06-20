@@ -21,7 +21,6 @@ echo $CF_CFLAGS
 
 cmake -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake \
     -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
-    -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DANDROID_ABI=${ABI} \
     -DCMAKE_INSTALL_PREFIX=../output \
