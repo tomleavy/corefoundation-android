@@ -1,4 +1,4 @@
-export ARCH=aarch64-linux-android
+export ARCH=x86_64-linux-android
 export API_LEVEL=21
 export HOST_TAG=darwin-x86_64
 
@@ -36,7 +36,7 @@ tar -xvf openssl-1.1.1c.tar.gz
 rm -rf openssl-1.1.1c.tar.gz
 cd openssl-1.1.1c
 
-./Configure -D__ANDROID_API__=${API_LEVEL} --prefix=$(PWD)/../output no-ssl3 no-comp enable-ec_nistp_64_gcc_128 android-arm64
+./Configure -D__ANDROID_API__=${API_LEVEL} --prefix=$(PWD)/../output no-ssl3 no-comp enable-ec_nistp_64_gcc_128 android-x86_64
 
 make -j8
 make install_sw 

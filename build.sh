@@ -5,7 +5,7 @@
 ./builddispatch.sh
 
 export API_LEVEL=21
-export ABI=arm64-v8a
+export ABI=x86_64
 
 git clone https://github.com/tomleavy/swift-corelibs-foundation.git
 cd swift-corelibs-foundation && git checkout tl-androidcf

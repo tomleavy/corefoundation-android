@@ -1,5 +1,5 @@
-export ARCH=aarch64-linux-android
-export ABI=arm64-v8a
+export ARCH=x86_64-linux-android
+export ABI=x86_64
 export API_LEVEL=21
 
 if [ -d ./swift-corelibs-libdispatch/output ]; then

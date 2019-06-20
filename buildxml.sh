@@ -1,4 +1,4 @@
-export ARCH=aarch64-linux-android
+export ARCH=x86_64-linux-android
 export API_LEVEL=21
 export HOST_TAG=darwin-x86_64
 
