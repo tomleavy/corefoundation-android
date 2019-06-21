@@ -23,7 +23,7 @@ cd curl && git checkout curl-7_65_1
 # Build
 
 autoreconf -i
-./configure --host=${ARCH} --enable-shared --disable-static \
+./configure --host=${ARCH} --enable-static --disable-shared \
     --disable-dependency-tracking --with-zlib=${TOOLCHAIN}/sysroot/usr \
     --with-ssl=`realpath ../openssl/output` \
     --without-ca-bundle --without-ca-path --enable-ipv6 \
