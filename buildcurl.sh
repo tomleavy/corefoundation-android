@@ -35,3 +35,10 @@ autoreconf -i
 
 make -j8
 make install
+
+
+cd output/lib
+
+for f in *.so; do rm -rf "$f"; done
+for f in *.so.4; do rm -rf "$f"; done
+for f in *.so.4.5.0; do mv "$f" "$(echo "$f" | sed s/\.4\.5\.0//)"; done
