@@ -1,15 +1,30 @@
-export ARCH=x86_64-linux-android
-export API_LEVEL=21
+if [ "$ARCH" == "" ]
+then
+  echo "$(basename $0): ARCH has not been set!"
+  exit 1
+fi
+
+if [ "$ARCH_LNK" == "" ]
+then
+  echo "$(basename $0): ARCH_LNK has not been set!"
+  exit 1
+fi
+
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
+echo "Starting work for Curl for ABI=${ABI}"
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
+
+export API_LEVEL=28
 export HOST_TAG=darwin-x86_64
 
 export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG
-export AR=$TOOLCHAIN/bin/${ARCH}-ar
-export AS=$TOOLCHAIN/bin/${ARCH}-as
+export AR=$TOOLCHAIN/bin/${ARCH_LNK}-ar
+export AS=$TOOLCHAIN/bin/${ARCH_LNK}-as
 export CC=$TOOLCHAIN/bin/${ARCH}${API_LEVEL}-clang
 export CXX=$TOOLCHAIN/bin/${ARCH}${API_LEVEL}-clang++
-export LD=$TOOLCHAIN/bin/${ARCH}-ld
-export RANLIB=$TOOLCHAIN/bin/${ARCH}-ranlib
-export STRIP=$TOOLCHAIN/bin/${ARCH}-strip
+export LD=$TOOLCHAIN/bin/${ARCH_LNK}-ld
+export RANLIB=$TOOLCHAIN/bin/${ARCH_LNK}-ranlib
+export STRIP=$TOOLCHAIN/bin/${ARCH_LNK}-strip
 export PATH=${TOOLCHAIN}/bin:${PATH}
 
 if [ -f ${PWD}/curl/output/lib/libcurl.la ]; then
@@ -23,7 +38,9 @@ cd curl && git checkout curl-7_65_1
 # Build
 
 autoreconf -i
-./configure --host=${ARCH} --enable-static --disable-shared \
+./configure \
+    --host=${ARCH_HOST} \
+    --enable-static --disable-shared \
     --disable-dependency-tracking --with-zlib=${TOOLCHAIN}/sysroot/usr \
     --with-ssl=`realpath ../openssl/output` \
     --without-ca-bundle --without-ca-path --enable-ipv6 \
@@ -31,7 +48,11 @@ autoreconf -i
     --disable-ldaps --disable-rtsp --disable-proxy --disable-dict \
     --disable-telnet --disable-tftp --disable-pop3 --disable-imap \
     --disable-smtp --disable-gopher --disable-sspi --disable-manual \
-    --target=${ARCH} --build=x86_64-unknown-linux-gnu --prefix=`realpath ./output`
+    --build=x86_64-unknown-linux-gnu --prefix=`realpath ./output`
 
 make -j8
 make install
+
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
+echo "Finished work for Curl for ABI=${ABI}"
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
