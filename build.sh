@@ -1,13 +1,30 @@
 #!/bin/bash
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $(basename $0) <x86|x86_64|armeabi-v7a|arm64-v8a>"
+if [ $# -gt 2 ] || [ $# -eq 0 ]; then
+    echo "Usage: $(basename $0) <x86|x86_64|armeabi-v7a|arm64-v8a> [Release|Debug]"
+    exit 1
+fi
+
+if [ $# -eq 2 ]; then
+  export BUILD_TYPE=$2
+else
+  export BUILD_TYPE=Release
+fi
+
+if [ "${BUILD_TYPE}" == "Release" ]
+then
+  echo "Building a RELEASE version"
+elif [ "${BUILD_TYPE}" == "Debug" ]
+then
+  echo "Building a DEBUG version"
+else
+    echo "Invalid build type: ${BUILD_TYPE}"
+    echo "Usage: $(basename $0) <x86|x86_64|armeabi-v7a|arm64-v8a> [Release|Debug]"
     exit 1
 fi
 
 export ABI=$1
 export API_LEVEL=28
-export BUILD_TYPE=Debug
 
 if [ "${ABI}" == "x86" ]
 then
