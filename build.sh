@@ -1,11 +1,71 @@
+#!/bin/bash
+
+if [ $# -gt 2 ] || [ $# -eq 0 ]; then
+    echo "Usage: $(basename $0) <x86|x86_64|armeabi-v7a|arm64-v8a> [Release|Debug]"
+    exit 1
+fi
+
+if [ $# -eq 2 ]; then
+  export BUILD_TYPE=$2
+else
+  export BUILD_TYPE=Release
+fi
+
+if [ "${BUILD_TYPE}" == "Release" ]
+then
+  echo "Building a RELEASE version"
+elif [ "${BUILD_TYPE}" == "Debug" ]
+then
+  echo "Building a DEBUG version"
+else
+    echo "Invalid build type: ${BUILD_TYPE}"
+    echo "Usage: $(basename $0) <x86|x86_64|armeabi-v7a|arm64-v8a> [Release|Debug]"
+    exit 1
+fi
+
+export ABI=$1
+export API_LEVEL=28
+
+if [ "${ABI}" == "x86" ]
+then
+  export ARCH=i686-linux-android
+  export ARCH_LNK=i686-linux-android
+  export ARCH_HOST=i686-linux-android
+  export OPENSSL_ABI=android-x86
+elif [ "${ABI}" == "x86_64" ]
+then
+  export ARCH=x86_64-linux-android
+  export ARCH_LNK=x86_64-linux-android
+  export ARCH_HOST=x86_64-linux-android
+  export OPENSSL_ABI=android-x86_64
+elif [ "${ABI}" == "armeabi-v7a" ]
+then
+  export ARCH=armv7a-linux-androideabi
+  export ARCH_LNK=arm-linux-androideabi
+  export ARCH_HOST=arm-linux-androideabi
+  export OPENSSL_ABI=android-arm
+elif [ "${ABI}" == "arm64-v8a" ]
+then
+  export ARCH=aarch64-linux-android
+  export ARCH_LNK=aarch64-linux-android
+  export ARCH_HOST=aarch64-linux-android
+  export OPENSSL_ABI=android-arm64
+else
+  echo "Invalid ABI value entered: $1"
+  echo "Usage: $(basename $0) <x86|x86_64|armeabi-v7a|arm64-v8a>"
+  exit 1
+fi
+
 ./buildOpenSSL.sh
 ./buildxml.sh
 ./buildICU.sh
 ./buildcurl.sh
 ./builddispatch.sh
 
-export API_LEVEL=21
-export ABI=arm64-v8a
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
+echo "Starting build of CoreFoundation for ABI=${ABI}"
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
+
 
 git clone https://github.com/tomleavy/swift-corelibs-foundation.git
 cd swift-corelibs-foundation && git checkout tl-androidcf
@@ -21,11 +81,10 @@ echo $CF_CFLAGS
 
 cmake -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake \
     -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
-    -DBUILD_SHARED_LIBS=ON \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
     -DANDROID_ABI=${ABI} \
     -DCMAKE_INSTALL_PREFIX=../output \
-    -DLIBXML2_LIBRARY=`realpath ../../../libxml2/output/lib/libxml2.so` \
+    -DLIBXML2_LIBRARY=`realpath ../../../libxml2/output/lib/libxml2.a` \
     -DLIBXML2_INCLUDE_DIR=../../../libxml2/output/include/libxml2 \
     -DCURL_LIBRARY=`realpath ../../../curl/output/lib/libcurl.so` \
     -DCURL_INCLUDE_DIR=../../../curl/output/include \
@@ -40,3 +99,6 @@ cmake -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.c
 make -j8 VERBOSE=1
 make install
 
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
+echo "Finished build of CoreFoundation for ABI=${ABI}"
+echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
