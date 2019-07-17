@@ -14,7 +14,7 @@ echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
 echo "Starting work for Dispatch for ABI=${ABI}"
 echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
 
-export API_LEVEL=28
+export API_LEVEL=21
 
 if [ -d ./swift-corelibs-libdispatch/output ]; then
     exit 0
