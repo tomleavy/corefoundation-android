@@ -24,7 +24,7 @@ else
 fi
 
 export ABI=$1
-export API_LEVEL=28
+export API_LEVEL=21
 
 if [ "${ABI}" == "x86" ]
 then

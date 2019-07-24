@@ -10,7 +10,7 @@ then
   exit 1
 fi
 
-export API_LEVEL=28
+export API_LEVEL=21
 export HOST_TAG=darwin-x86_64
 
 export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG
