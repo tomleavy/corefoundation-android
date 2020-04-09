@@ -59,20 +59,20 @@ if [ -f output/lib/libcrypto.a ]; then
     exit 0
 fi
 
-wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz
+wget https://www.openssl.org/source/openssl-1.1.1f.tar.gz
 
-SHA256=`sha256sum openssl-1.1.1c.tar.gz`
+SHA256=`sha256sum openssl-1.1.1f.tar.gz`
 
 echo $SHA256
 
-if [[ "${SHA256}" -eq "f6fb3079ad15076154eda9413fed42877d668e7069d9b87396d0804fdb3f4c90 openssl-1.1.1c.tar.gz" ]]; then
+if [[ "${SHA256}" -eq "186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35 openssl-1.1.1f.tar.gz" ]]; then
     echo "Error, openssl sha256 hash doesn't match"
     exit 1
 fi
 
-tar -xvf openssl-1.1.1c.tar.gz
-rm -rf openssl-1.1.1c.tar.gz
-cd openssl-1.1.1c
+tar -xvf openssl-1.1.1f.tar.gz
+rm -rf openssl-1.1.1f.tar.gz
+cd openssl-1.1.1f
 
 ./Configure -D__ANDROID_API__=${API_LEVEL} --prefix=$(PWD)/../output no-ssl3 no-comp ${OPTION_64BIT} ${OPENSSL_ABI}
 
