@@ -35,6 +35,12 @@ fi
 git clone https://github.com/curl/curl.git
 cd curl && git checkout curl-7_65_1
 
+if [[ -z PREBUILT_OPENSSL ]]; then
+    OPENSSL_DIR=`realpath ../openssl/output`
+else
+    OPENSSL_DIR="${PREBUILT_OPENSSL}"
+fi
+
 # Build
 
 autoreconf -i
@@ -42,7 +48,7 @@ autoreconf -i
     --host=${ARCH_HOST} \
     --enable-static --disable-shared \
     --disable-dependency-tracking --with-zlib=${TOOLCHAIN}/sysroot/usr \
-    --with-ssl=`realpath ../openssl/output` \
+    --with-ssl=${OPENSSL_DIR}/${ABI} \
     --without-ca-bundle --without-ca-path --enable-ipv6 \
     --enable-http --enable-ftp --disable-file --disable-ldap \
     --disable-ldaps --disable-rtsp --disable-proxy --disable-dict \
