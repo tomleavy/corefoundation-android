@@ -56,7 +56,12 @@ else
   exit 1
 fi
 
-./buildOpenSSL.sh
+echo "PREBUILT OPENSSL ${PREBUILT_OPENSSL}"
+
+if [[ -z PREBUILT_OPENSSL ]]; then 
+    ./buildOpenSSL.sh
+fi
+
 ./buildxml.sh
 ./buildICU.sh
 ./buildcurl.sh
