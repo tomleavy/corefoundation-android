@@ -43,7 +43,7 @@ export PATH=${TOOLCHAIN}/bin:${PATH}
 
 cd ../source && autoreconf -i && cd ../ && mkdir android && cd android
 
-../source/configure --prefix=$(PWD)../../output \
+../source/configure --prefix=$(pwd)../../output \
     --host=${ARCH_HOST} \
     --enable-static \
     --with-data-packaging=archive \
