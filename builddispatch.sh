@@ -20,8 +20,8 @@ if [ -d ./swift-corelibs-libdispatch/output ]; then
     exit 0
 fi
 
-git clone https://github.com/apple/swift-corelibs-libdispatch.git
-cd swift-corelibs-libdispatch && git checkout swift-5.0.1-RELEASE
+git clone https://github.com/spompelio/swift-corelibs-libdispatch.git
+cd swift-corelibs-libdispatch && git checkout swift-5.0.1-RELEASE_warn_relax
 
 mkdir output
 mkdir build && cd build
