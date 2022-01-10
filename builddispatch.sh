@@ -1,7 +1,7 @@
 if [ "$ABI" == "" ]
 then
   echo "$(basename $0): ABI has not been set!"
-  exit 1
+  #exit 1
 fi
 
 if [ "$BUILD_TYPE" == "" ]
@@ -20,8 +20,9 @@ if [ -d ./swift-corelibs-libdispatch/output ]; then
     exit 0
 fi
 
-git clone https://github.com/spompelio/swift-corelibs-libdispatch.git
-cd swift-corelibs-libdispatch && git checkout swift-5.0.1-RELEASE_warn_relax
+git clone https://github.com/apple/swift-corelibs-libdispatch.git
+cd swift-corelibs-libdispatch && git checkout swift-5.0.1-RELEASE
+git apply ../patches/libdispatch_compiler_warning_relax.patch
 
 mkdir output
 mkdir build && cd build
