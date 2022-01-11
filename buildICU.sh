@@ -24,12 +24,12 @@ cd icu4c
 
 mkdir macos && cd macos
 
-../source/runConfigureICU MacOSX \
+../source/runConfigureICU Linux \
 
 make -j8
 
 export API_LEVEL=28
-export HOST_TAG=darwin-x86_64
+export HOST_TAG=linux-x86_64
 
 export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG
 export AR=$TOOLCHAIN/bin/${ARCH_LNK}-ar
@@ -43,7 +43,7 @@ export PATH=${TOOLCHAIN}/bin:${PATH}
 
 cd ../source && autoreconf -i && cd ../ && mkdir android && cd android
 
-../source/configure --prefix=$(PWD)../../output \
+../source/configure --prefix=$(pwd)../../output \
     --host=${ARCH_HOST} \
     --enable-static \
     --with-data-packaging=archive \

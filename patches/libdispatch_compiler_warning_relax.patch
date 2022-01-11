@@ -1,0 +1,20 @@
+diff --git a/cmake/modules/DispatchCompilerWarnings.cmake b/cmake/modules/DispatchCompilerWarnings.cmake
+index a7b31c8..6f840d6 100644
+--- a/cmake/modules/DispatchCompilerWarnings.cmake
++++ b/cmake/modules/DispatchCompilerWarnings.cmake
+@@ -15,7 +15,6 @@ else()
+     add_compile_options(-Wcomma)
+     add_compile_options(-Wconditional-uninitialized)
+     add_compile_options(-Wconversion)
+-    add_compile_options(-Wcovered-switch-default)
+     add_compile_options(-Wdate-time)
+     add_compile_options(-Wdeprecated)
+     add_compile_options(-Wdocumentation)
+@@ -38,7 +37,6 @@ else()
+     add_compile_options(-Wsign-conversion)
+     add_compile_options(-Wstatic-in-inline)
+     add_compile_options(-Wsuper-class-method-mismatch)
+-    add_compile_options(-Wswitch-enum)
+     add_compile_options(-Wunguarded-availability)
+     add_compile_options(-Wunreachable-code)
+     add_compile_options(-Wunused)

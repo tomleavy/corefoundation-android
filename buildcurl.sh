@@ -15,7 +15,7 @@ echo "Starting work for Curl for ABI=${ABI}"
 echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
 
 export API_LEVEL=21
-export HOST_TAG=darwin-x86_64
+export HOST_TAG=linux-x86_64
 
 export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG
 export AR=$TOOLCHAIN/bin/${ARCH_LNK}-ar
