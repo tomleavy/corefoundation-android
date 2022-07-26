@@ -41,10 +41,20 @@ else
     OPENSSL_DIR="${PREBUILT_OPENSSL}"
 fi
 
+if [ -z ${AWS_LC+x} ]; then
+    echo "Using OpenSSL"
+    SSL=""
+else
+    echo "Using BoringSSL"
+    SSL="CFLAGS=-DOPENSSL_IS_BORINGSSL=true"
+fi
+
+
 # Build
 
 autoreconf -i
 ./configure \
+    ${SSL} \
     --host=${ARCH_HOST} \
     --enable-static --disable-shared \
     --disable-dependency-tracking --with-zlib=${TOOLCHAIN}/sysroot/usr \
