@@ -4,23 +4,17 @@ then
   exit 1
 fi
 
-if [ "$ARCH_LNK" == "" ]
-then
-  echo "$(basename $0): ARCH_LNK has not been set!"
-  exit 1
-fi
-
 export API_LEVEL=21
 export HOST_TAG=linux-x86_64
 
 export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG
-export AR=$TOOLCHAIN/bin/${ARCH_LNK}-ar
-export AS=$TOOLCHAIN/bin/${ARCH_LNK}-as
-export CC=$TOOLCHAIN/bin/${ARCH}${API_LEVEL}-clang
-export CXX=$TOOLCHAIN/bin/${ARCH}${API_LEVEL}-clang++
-export LD=$TOOLCHAIN/bin/${ARCH_LNK}-ld
-export RANLIB=$TOOLCHAIN/bin/${ARCH_LNK}-ranlib
-export STRIP=$TOOLCHAIN/bin/${ARCH_LNK}-strip
+export AR=$TOOLCHAIN/bin/llvm-ar
+export AS=$TOOLCHAIN/bin/llvm-as
+export CC=$TOOLCHAIN/bin/${ARCH}-clang
+export CXX=$TOOLCHAIN/bin/${ARCH}-clang++
+export LD=$TOOLCHAIN/bin/ld
+export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
+export STRIP=$TOOLCHAIN/bin/llvm-strip
 export PATH=${TOOLCHAIN}/bin:${PATH}
 
 echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
@@ -54,8 +48,9 @@ autoreconf -i
 
 # Make + Install
 
-make -j8 libxml2.la && make install-libLTLIBRARIES
-cd include && make install
+#make -j8 libxml2.la && make install-libLTLIBRARIES
+make -j8 && make install
+#cd include && make install
 
 echo "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*"
 echo "Finished work for XML for ABI=${ABI}"

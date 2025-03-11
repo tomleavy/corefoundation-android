@@ -21,13 +21,14 @@ if [ -d ./swift-corelibs-libdispatch/output ]; then
 fi
 
 git clone https://github.com/apple/swift-corelibs-libdispatch.git
-cd swift-corelibs-libdispatch && git checkout swift-5.0.1-RELEASE
-git apply ../patches/libdispatch_compiler_warning_relax.patch
+cd swift-corelibs-libdispatch && git checkout swift-6.0.3-RELEASE
+#git apply ../patches/libdispatch_compiler_warning_relax.patch
 
 mkdir output
 mkdir build && cd build
 
 cmake -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake \
+    -DBUILD_SHARED_LIBS=OFF \
     -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
     -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
     -DANDROID_ABI=${ABI} \
